@@ -13,7 +13,9 @@ node('Linux'){
   stage name: 'Test & Scan', concurrency: 1
 //  parallel Test_Publish: {
     try{
+      withSonarQubeEnv {
        sh 'mvn verify sonar:sonar'
+     }
      }
      catch(err){
        sh 'echo "Test have a FAILURE"'
