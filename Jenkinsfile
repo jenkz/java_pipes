@@ -13,7 +13,7 @@ node('Linux'){
   stage name: 'Test & Scan', concurrency: 1
 //  parallel Test_Publish: {
     try{
-       sh 'mvn test -B'
+       sh 'mvn clean package'
      }
      catch(err){
        sh 'echo "Test have a FAILURE"'
