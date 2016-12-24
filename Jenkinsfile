@@ -24,7 +24,7 @@ node('Linux'){
      }
   }, Code_Scan: {
     withSonarQubeEnv {
-        sh 'mvn verify cobertura:cobertura sonar:sonar' //-Dsonar.login=jenkins -Dsonar.password=Letmein
+        sh 'mvn verify sonar:sonar' //-Dsonar.login=jenkins -Dsonar.password=Letmein
       }
   },
     failFast: true
