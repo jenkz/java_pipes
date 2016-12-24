@@ -11,7 +11,7 @@ node('Linux'){
       userRemoteConfigs: [[credentialsId: 'jenks', url: 'git@github.com:RocketScienceProjects/BlueKing.git']]])
 
   stage name: 'Test & Scan', concurrency: 1
-  parallel Test_Publish: {
+//  parallel Test_Publish: {
     try{
        sh 'mvn test -B'
      }
@@ -22,12 +22,14 @@ node('Linux'){
      } finally {
        junit '**\\target\\surefire-reports\\*.xml'
      }
-  }, Code_Scan: {
+
+  stage name: 'Code_Scan', concurrency: 1
+  // }, Code_Scan: {
     withSonarQubeEnv {
         sh 'mvn verify sonar:sonar' //-Dsonar.login=jenkins -Dsonar.password=Letmein
       }
-  },
-    failFast: true
+  //},
+  //  failFast: true
 
   // stage name: 'Deploy To Lab', concurrency: 1
   //   def p =  pwd()
