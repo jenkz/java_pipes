@@ -13,7 +13,7 @@ node('Linux'){
   stage name: 'Test & Scan', concurrency: 1
 //  parallel Test_Publish: {
     try{
-       sh 'mvn clean package'
+       sh 'mv clean package' //intensional invoke failure
      }
      catch(err){
        sh 'echo "Test have a FAILURE"'
@@ -42,7 +42,7 @@ node('Linux'){
 
   catch(err){
     stage 'Send Email Notification'
-    
+
     emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
       Check console output at $BUILD_URL to view the results.''',
       recipientProviders: [[$class: 'CulpritsRecipientProvider']],
