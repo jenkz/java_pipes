@@ -47,7 +47,7 @@ node('Linux'){
     stage 'Send Email Notification'
       emailext(to: "nirish.okram@gmail.com",
         subject: "Jenkins Build ${JOB_NAME} ${BUILD_NUMBER} Failed...",
-        body: "<p>Hi,<br>Jenkins Job Link :  ${env.BUILD_URL}<br> Failed: ${err}</p>  <p>Thanks<br>TestAdmin<br></p>",
+        body: "<p>Hi,<br>Jenkins Job Link :  ${env.BUILD_URL}<br> <strong>Failed with Error</strong>: <i>${err}</i></p>  <p>Thanks<br>TestAdmin<br></p>",
         mimeType: 'text/html');
 
         throw err
