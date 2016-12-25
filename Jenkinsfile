@@ -13,7 +13,9 @@ node('Linux'){
   stage name: 'Test & Scan', concurrency: 1
 //  parallel Test_Publish: {
     try{
-       sh 'mvn clean package'
+      withSonarQubeEnv {
+       sh 'mvn verify sonar:sonar'
+     }
      }
      catch(err){
        sh 'echo "Test have a FAILURE"'
@@ -23,11 +25,11 @@ node('Linux'){
        junit '**\\target\\surefire-reports\\*.xml'
      }
 
-  stage name: 'Code_Scan', concurrency: 1
+  //stage name: 'Code_Scan', concurrency: 1
   // }, Code_Scan: {
-    withSonarQubeEnv {
-        sh 'mvn verify sonar:sonar' //-Dsonar.login=jenkins -Dsonar.password=Letmein
-      }
+    //withSonarQubeEnv {
+      //  sh 'mvn verify sonar:sonar' //-Dsonar.login=jenkins -Dsonar.password=Letmein
+      // }
   //},
   //  failFast: true
 
