@@ -42,12 +42,9 @@ node('Linux'){
 
   catch(err){
     stage 'Send Email Notification'
-     emailext body: "Stacktrace output below:
-      ${err}",
-      recipientProviders: [[$class: 'CulpritsRecipientProvider']],
-      subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
-      to: 'nirish.okram@gmail.com'
-
+      mail (subject: "Jenkins Build Failed with ${err.message}",
+  to: "nirish.okram@gmail.com",
+  body: "Hi,\n \nJenkins Job Link :  ${env.BUILD_URL} \n \n Failed: ${err}  \n\n Thanks \n TestAdmin")
       throw err
       currentBuild.result = 'FAILURE'
   }
