@@ -44,7 +44,8 @@ node('Linux'){
     stage 'Send Email Notification'
       mail (subject: "Jenkins Build Failed with ${err.message}",
   to: "nirish.okram@gmail.com",
-  body: "Hi,\n \nJenkins Job Link :  ${env.BUILD_URL} \n \n Failed: ${err}  \n\n Thanks \n TestAdmin")
+  body: "Hi,\n \nJenkins Job Link :  ${env.BUILD_URL} \n \n Failed: ${err}  \n\n Thanks \n TestAdmin",
+  mimeType: 'text/plain')
       throw err
       currentBuild.result = 'FAILURE'
   }
