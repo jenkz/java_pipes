@@ -15,7 +15,7 @@ node('Linux'){
     try{
 
       withSonarQubeEnv {
-       sh 'mvn verify sonar:sonar'
+       sh 'mv verify sonar:sonar'
           }
      }
      catch(err){
