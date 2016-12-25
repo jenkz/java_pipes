@@ -43,7 +43,7 @@ node('Linux'){
   catch(err){
     stage 'Send Email Notification'
      emailext body: '''Stacktrace output below:
-      throw err
+      throw err''',
       recipientProviders: [[$class: 'CulpritsRecipientProvider']],
       subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
       to: 'nirish.okram@gmail.com'
