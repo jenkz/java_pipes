@@ -42,7 +42,13 @@ node('Linux'){
 
   catch(err){
     stage 'Send Email Notification'
-      sh 'echo "There was an error"'
+    
+    emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+      Check console output at $BUILD_URL to view the results.''',
+      recipientProviders: [[$class: 'CulpritsRecipientProvider']],
+      subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
+      to: 'nirish.okram@gmail.com'
+
       throw err
       currentBuild.result = 'FAILURE'
   }
