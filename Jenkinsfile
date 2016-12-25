@@ -42,12 +42,13 @@ node('Linux'){
 
   catch(err){
     stage 'Send Email Notification'
-      mail (subject: "Jenkins Build Failed with ${err.message}",
-  to: "nirish.okram@gmail.com",
-  body: "Hi,\n \nJenkins Job Link :  ${env.BUILD_URL} \n \n Failed: ${err}  \n\n Thanks \n TestAdmin",
-  mimeType: 'text/html')
-      throw err
-      currentBuild.result = 'FAILURE'
+      emailext(to: "nirish.okram@gmail.com",
+        subject: "Jenkins Build ${JOB_NAME} ${BUILD_NUMBER} Failed...",
+        body: "Hi,\n \nJenkins Job Link :  ${env.BUILD_URL} \n \n Failed: ${err}  \n\n Thanks \n TestAdmin",
+        mimeType: 'text/html');
+        
+        throw err
+       currentBuild.result = 'FAILURE'
   }
 
 }
